@@ -21,14 +21,14 @@ public class RabbitMqConfig {
     }
 
     @Bean
-    public Queue createQueuePaymentsDetails(){
+    public Queue queuePaymentsDetails(){
         return QueueBuilder.nonDurable("alura-food.payments-ms.payments-details.orders-ms").build();
     }
 
     @Bean
     public Binding bindPaymentsOrders(FanoutExchange fanoutExchange) {
         return BindingBuilder
-                .bind(createQueuePaymentsDetails())
+                .bind(queuePaymentsDetails())
                 .to(paymentsFanoutExchange());
     }
 
