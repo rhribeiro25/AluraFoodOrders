@@ -1,6 +1,5 @@
 CREATE TABLE orders (
-  id bigint(20) NOT NULL AUTO_INCREMENT,
-  order_date datetime NOT NULL,
-  order_status varchar(255) NOT NULL,
-  PRIMARY KEY (id)
-)
+  id bigint CONSTRAINT pk_id_order PRIMARY KEY,
+  order_date date NOT NULL,
+  order_status varchar(255) NOT NULL
+);

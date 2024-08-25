@@ -1,8 +1,7 @@
-CREATE TABLE order_items (
-  id bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS order_items (
+  id bigint CONSTRAINT pk_id_order_item PRIMARY KEY,
   description varchar(255) DEFAULT NULL,
-  qtt int(11) NOT NULL,
-  order_id bigint(20) NOT NULL,
-  PRIMARY KEY (id),
+  qtt integer NOT NULL,
+  order_id bigint NOT NULL,
   FOREIGN KEY (order_id) REFERENCES orders(id)
-)
+);
