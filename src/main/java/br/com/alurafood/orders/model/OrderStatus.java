@@ -2,11 +2,11 @@ package br.com.alurafood.orders.model;
 
 public enum OrderStatus {
     DONE,
-    CANCELED,
+    WAITING_PAYMENT,
     PAID,
     NOT_AUTHORIZED,
-    CONFIRMED,
     READY,
     OUT_FOR_DELIVERY,
-    DELIVERED;
+    DELIVERED,
+    CANCELED;
 }

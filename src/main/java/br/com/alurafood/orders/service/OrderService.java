@@ -20,20 +20,20 @@ import java.util.stream.Collectors;
 public class OrderService {
 
     @Autowired
-    private OrderRepository repository;
+    private OrderRepository orderRepository;
 
     @Autowired
     private final ModelMapper modelMapper;
 
 
     public List<OrderDto> findAll() {
-        return repository.findAll().stream()
+        return orderRepository.findAll().stream()
                 .map(p -> modelMapper.map(p, OrderDto.class))
                 .collect(Collectors.toList());
     }
 
     public OrderDto findById(Long id) {
-        Order order = repository.findById(id)
+        Order order = orderRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
 
         return modelMapper.map(order, OrderDto.class);
@@ -45,33 +45,33 @@ public class OrderService {
         order.setOrderDate(LocalDateTime.now());
         order.setOrderStatus(OrderStatus.DONE);
         order.getOrderItems().forEach(item -> item.setOrder(order));
-        Order salvo = repository.save(order);
+        Order salvo = orderRepository.save(order);
 
         return modelMapper.map(order, OrderDto.class);
     }
 
     public OrderDto update(Long id, OrderStatusDto dto) {
 
-        Order order = repository.findOrderById(id);
+        Order order = orderRepository.findOrderById(id);
 
         if (order == null) {
             throw new EntityNotFoundException();
         }
 
         order.setOrderStatus(dto.getOrderStatus());
-        repository.updateOrderStatus(dto.getOrderStatus(), order);
+        orderRepository.updateOrderStatus(dto.getOrderStatus(), order);
         return modelMapper.map(order, OrderDto.class);
     }
 
     public void approvePaymentOrder(Long id) {
 
-        Order order = repository.findOrderById(id);
+        Order order = orderRepository.findOrderById(id);
 
         if (order == null) {
             throw new EntityNotFoundException();
         }
 
         order.setOrderStatus(OrderStatus.PAID);
-        repository.updateOrderStatus(OrderStatus.PAID, order);
+        orderRepository.updateOrderStatus(OrderStatus.PAID, order);
     }
 }

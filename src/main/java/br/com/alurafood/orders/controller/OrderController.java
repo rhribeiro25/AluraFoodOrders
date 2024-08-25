@@ -34,11 +34,11 @@ public class OrderController {
 
         @PostMapping()
         public ResponseEntity<OrderDto> create(@RequestBody @Valid OrderDto dto, UriComponentsBuilder uriBuilder) {
-            OrderDto pedidoRealizado = orderService.create(dto);
+            OrderDto orderRealized = orderService.create(dto);
 
-            URI endereco = uriBuilder.path("/orders/{id}").buildAndExpand(pedidoRealizado.getId()).toUri();
+            URI endereco = uriBuilder.path("/orders/{id}").buildAndExpand(orderRealized.getId()).toUri();
 
-            return ResponseEntity.created(endereco).body(pedidoRealizado);
+            return ResponseEntity.created(endereco).body(orderRealized);
 
         }
 
