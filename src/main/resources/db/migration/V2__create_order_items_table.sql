@@ -1,7 +1,11 @@
 CREATE TABLE IF NOT EXISTS order_items (
-  id bigserial CONSTRAINT pk_id_order_item PRIMARY KEY,
+  id bigint GENERATED ALWAYS AS identity
+  	CONSTRAINT pk_order_item
+  		primary key,
   description varchar(255) DEFAULT NULL,
   qtt integer NOT NULL,
   order_id bigint NOT NULL,
-  FOREIGN KEY (fk_order_id) REFERENCES orders(id)
-)
+  CONSTRAINT fk_order_item
+      FOREIGN KEY(order_id)
+        REFERENCES orders(id)
+);
