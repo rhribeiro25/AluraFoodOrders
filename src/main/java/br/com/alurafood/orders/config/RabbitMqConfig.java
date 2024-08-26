@@ -87,7 +87,7 @@ public class RabbitMqConfig {
     public Queue queuePaymentsConfirmed() {
         return QueueBuilder
                 .nonDurable("alura-food.payments-ms.payments-confirmed.orders-ms")
-                .deadLetterExchange("payments.confirmed.dlx")
+                .deadLetterExchange("payments.confirmed.orders.dlx")
                 .build();
     }
 
@@ -108,7 +108,7 @@ public class RabbitMqConfig {
     @Bean
     public FanoutExchange paymentsConfirmedDeadLetterExchange() {
         return ExchangeBuilder
-                .fanoutExchange("payments.confirmed.dlx")
+                .fanoutExchange("payments.confirmed.orders.dlx")
                 .build();
     }
 
