@@ -48,13 +48,4 @@ public class OrderController {
 
             return ResponseEntity.ok(dto);
         }
-
-
-        @PutMapping("/{id}/paid")
-        public ResponseEntity<Void> approvePayment(@PathVariable @NotNull Long id) {
-            orderService.approvePaymentOrder(id);
-
-            return ResponseEntity.ok().build();
-
-        }
 }

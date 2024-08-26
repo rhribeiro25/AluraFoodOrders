@@ -63,15 +63,4 @@ public class OrderService {
         return modelMapper.map(order, OrderDto.class);
     }
 
-    public void approvePaymentOrder(Long id) {
-
-        Order order = orderRepository.findOrderById(id);
-
-        if (order == null) {
-            throw new EntityNotFoundException();
-        }
-
-        order.setOrderStatus(OrderStatus.PAID);
-        orderRepository.updateOrderStatus(OrderStatus.PAID, order);
-    }
 }
