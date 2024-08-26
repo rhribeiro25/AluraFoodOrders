@@ -2,34 +2,34 @@ package br.com.alurafood.orders.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@Table(name = "order_items")
+@Table(name = "product")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderItem {
+public class Product {
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @OneToOne(optional=false)
-    private Product product;
+    @Size(max = 128)
+    private String name;
 
     @NotNull
-    @Positive
-    private Integer qtt;
-
+    @Size(max = 256)
     private String description;
-
-    @ManyToOne(optional=false)
-    private Order order;
 
 }
