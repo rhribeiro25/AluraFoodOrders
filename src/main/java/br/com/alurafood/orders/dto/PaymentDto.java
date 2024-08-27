@@ -1,14 +1,13 @@
 package br.com.alurafood.orders.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Getter
 @Setter
-@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class PaymentDto {
 
     private Long id;
@@ -17,7 +16,7 @@ public class PaymentDto {
     private String payNumber;
     private String payExpiration;
     private String payCode;
-    private PaymentStatusDto payStatus;
+    private String payStatus;
     private OrderDto order;
     private Long paymentMethodId;
 

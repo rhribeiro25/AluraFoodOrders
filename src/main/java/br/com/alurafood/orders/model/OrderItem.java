@@ -19,8 +19,8 @@ public class OrderItem {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @OneToOne(optional=false)
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
 
     @NotNull
@@ -29,7 +29,7 @@ public class OrderItem {
 
     private String description;
 
-    @ManyToOne(optional=false)
+    @OneToOne(cascade=CascadeType.PERSIST)
     private Order order;
 
 }

@@ -20,7 +20,7 @@ public class PaymentsRabbitListener {
 
     @RabbitListener(queues = "alura-food.payments-ms.payments-created.orders-ms")
     public void getPaymentsCreatedMessages(@Payload PaymentDto payment){
-        Order order = orderRepository.findById(payment.getOrderId())
+        Order order = orderRepository.findById(payment.getOrder().getId())
                 .orElseThrow(EntityNotFoundException::new);
         order.setOrderStatus(OrderStatus.WAITING_PAYMENT);
         orderRepository.save(order);
@@ -28,7 +28,7 @@ public class PaymentsRabbitListener {
 
     @RabbitListener(queues = "alura-food.payments-ms.payments-confirmed.orders-ms")
     public void getPaymentsConfirmedMessages(@Payload PaymentDto payment){
-        Order order = orderRepository.findById(payment.getOrderId())
+        Order order = orderRepository.findById(payment.getOrder().getId())
                 .orElseThrow(EntityNotFoundException::new);
         order.setOrderStatus(OrderStatus.PAID);
         orderRepository.save(order);

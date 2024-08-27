@@ -13,7 +13,6 @@ import java.util.List;
 public class OrderDto {
 
     private Long id;
-    private ProductDto product;
     private LocalDateTime orderDate;
     private String orderStatus;
     private List<OrderItemDto> orderItems = new ArrayList<>();

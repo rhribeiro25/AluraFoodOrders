@@ -1,7 +1,6 @@
 package br.com.alurafood.orders.controller;
 
 import br.com.alurafood.orders.dto.OrderDto;
-import br.com.alurafood.orders.dto.OrderStatusDto;
 import br.com.alurafood.orders.service.OrderService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -33,19 +32,13 @@ public class OrderController {
         }
 
         @PostMapping()
-        public ResponseEntity<OrderDto> create(@RequestBody @Valid OrderDto dto, UriComponentsBuilder uriBuilder) {
-            OrderDto orderRealized = orderService.create(dto);
-
-            URI endereco = uriBuilder.path("/orders/{id}").buildAndExpand(orderRealized.getId()).toUri();
-
-            return ResponseEntity.created(endereco).body(orderRealized);
+        public ResponseEntity<OrderDto> create(@RequestBody @Valid OrderDto dto) {
+            return ResponseEntity.ok(orderService.create(dto));
 
         }
 
-        @PutMapping("/{id}/status")
-        public ResponseEntity<OrderDto> edit(@PathVariable Long id, @RequestBody OrderStatusDto status){
-           OrderDto dto = orderService.update(id, status);
-
-            return ResponseEntity.ok(dto);
+        @PutMapping("/{id}")
+        public ResponseEntity<OrderDto> edit(@RequestBody @Valid OrderDto dto, @PathVariable @NotNull Long id){
+            return ResponseEntity.ok(orderService.update(dto, id));
         }
 }
