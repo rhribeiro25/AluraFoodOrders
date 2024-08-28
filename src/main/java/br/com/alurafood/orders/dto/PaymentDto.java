@@ -17,7 +17,7 @@ public class PaymentDto {
     private String payExpiration;
     private String payCode;
     private String payStatus;
-    private OrderDto order;
+    private Long orderId;
     private Long paymentMethodId;
 
 }

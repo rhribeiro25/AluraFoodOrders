@@ -27,5 +27,4 @@ public class Product {
     @NotNull
     @Size(max = 256)
     private String description;
-
 }
