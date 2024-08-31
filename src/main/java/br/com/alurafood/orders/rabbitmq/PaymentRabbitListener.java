@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class PaymentsRabbitListener {
+public class PaymentRabbitListener {
 
     @Autowired
     private OrderRepository orderRepository;
