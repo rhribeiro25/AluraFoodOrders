@@ -1,10 +1,8 @@
 package br.com.alurafood.orders.rabbitmq;
 
 import br.com.alurafood.orders.dto.PaymentDto;
-import br.com.alurafood.orders.model.Order;
 import br.com.alurafood.orders.model.OrderStatus;
-import br.com.alurafood.orders.repository.OrderRepository;
-import jakarta.persistence.EntityNotFoundException;
+import br.com.alurafood.orders.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,21 +14,15 @@ import org.springframework.stereotype.Component;
 public class PaymentRabbitListener {
 
     @Autowired
-    private OrderRepository orderRepository;
+    private OrderService orderService;
 
     @RabbitListener(queues = "alura-food.payments-ms.payments-created.orders-ms")
     public void getPaymentsCreatedMessages(@Payload PaymentDto payment){
-        Order order = orderRepository.findById(payment.getOrderId())
-                .orElseThrow(EntityNotFoundException::new);
-        order.setOrderStatus(OrderStatus.WAITING_PAYMENT);
-        orderRepository.save(order);
+        orderService.updatePaymentStatus(payment, OrderStatus.WAITING_PAYMENT);
     }
 
     @RabbitListener(queues = "alura-food.payments-ms.payments-confirmed.orders-ms")
     public void getPaymentsConfirmedMessages(@Payload PaymentDto payment){
-        Order order = orderRepository.findById(payment.getOrderId())
-                .orElseThrow(EntityNotFoundException::new);
-        order.setOrderStatus(OrderStatus.PAID);
-        orderRepository.save(order);
+        orderService.updatePaymentStatus(payment, OrderStatus.PAID);
     }
 }

@@ -1,6 +1,7 @@
 package br.com.alurafood.orders.service;
 
 import br.com.alurafood.orders.dto.OrderDto;
+import br.com.alurafood.orders.dto.PaymentDto;
 import br.com.alurafood.orders.model.Order;
 import br.com.alurafood.orders.model.OrderStatus;
 import br.com.alurafood.orders.repository.OrderRepository;
@@ -58,6 +59,13 @@ public class OrderService {
         order.setId(id);
         orderRepository.save(order);
         return modelMapper.map(order, OrderDto.class);
+    }
+
+    public void updatePaymentStatus(PaymentDto payment, OrderStatus status){
+        Order order = orderRepository.findById(payment.getOrderId())
+                .orElseThrow(EntityNotFoundException::new);
+        order.setOrderStatus(status);
+        orderRepository.save(order);
     }
 
 }

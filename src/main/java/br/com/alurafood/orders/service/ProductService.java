@@ -1,6 +1,7 @@
 package br.com.alurafood.orders.service;
 
 import br.com.alurafood.orders.dto.ProductDto;
+import br.com.alurafood.orders.dto.PromotionDto;
 import br.com.alurafood.orders.model.Product;
 import br.com.alurafood.orders.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -51,6 +52,12 @@ public class ProductService {
         product.setId(id);
         productRepository.save(product);
         return modelMapper.map(product, ProductDto.class);
+    }
+
+    public void updateHasPromotion(Boolean hasPromotion, Long id) {
+        Product product = productRepository.findProductById(id);
+        product.setHasPromotion(hasPromotion);
+        productRepository.save(product);
     }
 
 }

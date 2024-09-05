@@ -1,8 +1,6 @@
 package br.com.alurafood.orders.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,8 +21,6 @@ public class OrderItem {
     @JoinColumn(name="product_id", referencedColumnName = "id")
     private Product product;
 
-    @NotNull
-    @Positive
     private Integer qtt;
 
     private String description;
